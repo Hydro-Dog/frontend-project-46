@@ -43,7 +43,6 @@ program
     ])
       .then(([res1, res2]) => {
         let result = compare(JSON.parse(res1.value), JSON.parse(res2.value));
-        // eslint-disable-next-line no-nested-ternary
         result = result.sort(([, a], [, b]) => (a < b ? -1 : a > b ? 1 : 0));
         const stringResult = result.map(([action, key, value]) => `  ${action || ' '} ${key}: ${value} \n`).join('');
         // eslint-disable-next-line no-useless-concat
