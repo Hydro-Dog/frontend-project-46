@@ -1,5 +1,5 @@
 import { readFile } from 'node:fs/promises';
-import compare from '../bin/gendiff';
+import compare from '../src/utils/compare.js';
 
 let json1 = null;
 let json2 = null;
