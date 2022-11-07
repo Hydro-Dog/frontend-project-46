@@ -5,14 +5,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: paambaati/codeclimate-action@v3.0.0
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       - run: npm i
       - run: npx eslint .
       - run: npx jest
       - run: echo "🍏 This job's status is ${{ job.status }}."
       - name: Test & publish code coverage
-      - uses: paambaati/codeclimate-action@v3.0.0
-      
+
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
         with:

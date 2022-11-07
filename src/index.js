@@ -31,6 +31,7 @@ const runDiff = () => {
           break;
 
         case '.yml':
+        case '.yaml':
           readFileData = Promise.allSettled([
             parseYaml(file1path),
             parseYaml(file2path),
