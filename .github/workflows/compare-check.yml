@@ -12,9 +12,8 @@ jobs:
       - run: npx jest
       - run: echo "🍏 This job's status is ${{ job.status }}."
       - name: Test & publish code coverage
-
-        env:
+      - env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-        with:
+      - with:
           coverageCommand: make test-coverage
           debug: true
