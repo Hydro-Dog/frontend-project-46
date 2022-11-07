@@ -10,4 +10,3 @@ jobs:
       - run: npx eslint .
       - run: npx jest
       - run: echo "🍏 This job's status is ${{ job.status }}."
-
