@@ -14,7 +14,7 @@ beforeEach(async () => {
   json2 = JSON.parse(res2.value);
 });
 
-test('compare', () => {
+test('compare different files', () => {
   expect(compare(json1, json2)).toEqual([
     ['', 'host', 'hexlet.io'],
     ['-', 'timeout', 50],
@@ -22,5 +22,14 @@ test('compare', () => {
     ['-', 'proxy', '123.234.53.22'],
     ['-', 'follow', false],
     ['+', 'verbose', 'true'],
+  ]);
+});
+
+test('compare same files, check output structure', () => {
+  expect(compare(json1, json1)).toEqual([
+    ['', 'host', 'hexlet.io'],
+    ['', 'timeout', 50],
+    ['', 'proxy', '123.234.53.22'],
+    ['', 'follow', false],
   ]);
 });
