@@ -45,11 +45,13 @@ const runDiff = () => {
         .then(([res1, res2]) => {
           let result = compare(res1.value, res2.value);
 
-          result = sort(result);
+          console.log('result: ', JSON.stringify(result))
 
-          const stringResult = result.map(([action, key, value]) => `  ${action || ' '} ${key}: ${value} \n`).join('');
+        //   result = sort(result);
 
-          console.log(`{\n${stringResult}}`);
+        //   const stringResult = result.map(([action, key, value]) => `  ${action || ' '} ${key}: ${value} \n`).join('');
+
+        //   console.log(`{\n${stringResult}}`);
         })
         .catch(console.error);
     });
