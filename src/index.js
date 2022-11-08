@@ -3,6 +3,7 @@ import path from 'node:path';
 import compare from './utils/compare.js';
 import sort from './utils/sort.js';
 import { parseYaml, parseJson } from './parsers.js';
+import extraTypeOf from './utils/extraTypeOf.js';
 
 const runDiff = () => {
   program
@@ -45,9 +46,23 @@ const runDiff = () => {
         .then(([res1, res2]) => {
           let result = compare(res1.value, res2.value);
 
-          console.log('result: ', JSON.stringify(result))
+          result = sort(result);
 
-        //   result = sort(result);
+        //   console.log('result: ', JSON.stringify(result));
+
+          const foo = (data, spaces = 0) => {
+    
+            const leftSpaces = Array.from({ length: spaces }, () => ' ').join('');
+            const stringStart = `${leftSpaces}{\n`;
+            const get = (sign, key, value) => `  ${sign || ' '} ${key}: ${Array.isArray(value) ? foo(value) : value} \n`
+            const stringMid = data.map(({ sign, key, value }) => get(sign, key, value));
+            const stringEnd = '}';
+            
+
+            return stringStart + stringMid + stringEnd
+          };
+
+          console.log(foo(result))
 
         //   const stringResult = result.map(([action, key, value]) => `  ${action || ' '} ${key}: ${value} \n`).join('');
 
