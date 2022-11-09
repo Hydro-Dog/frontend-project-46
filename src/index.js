@@ -48,25 +48,21 @@ const runDiff = () => {
 
           result = sort(result);
 
-        //   console.log('result: ', JSON.stringify(result));
+          //   console.log('result: ', result.length, result, '-----------');
 
-          const foo = (data, spaces = 0) => {
-    
-            const leftSpaces = Array.from({ length: spaces }, () => ' ').join('');
-            const stringStart = `${leftSpaces}{\n`;
-            const get = (sign, key, value) => `  ${sign || ' '} ${key}: ${Array.isArray(value) ? foo(value) : value} \n`
-            const stringMid = data.map(({ sign, key, value }) => get(sign, key, value));
-            const stringEnd = '}';
-            
+          const calcSpaces = (length) => Array.from({ length }, () => ' ').join('')
 
-            return stringStart + stringMid + stringEnd
-          };
+          const foo = (data, spaces = 0, isChild) => data.map(({ sign, key, value }, index, arr) => {
+            const leftSpacesSymbol = calcSpaces(spaces);
+            const signSymdol = sign ? `${sign} ` : '  ';
+            const keySymbol = `${key}: `;
+            const valueSymbol = extraTypeOf(value) === 'array' ? `{\n${foo(value, spaces + 4).join('')}` : `${value}${index === arr.length - 1 ? `\n${calcSpaces(spaces - 2)}}` : ''} \n`;
 
-          console.log(foo(result))
+            return leftSpacesSymbol + signSymdol + keySymbol + valueSymbol;
+          });
 
-        //   const stringResult = result.map(([action, key, value]) => `  ${action || ' '} ${key}: ${value} \n`).join('');
-
-        //   console.log(`{\n${stringResult}}`);
+          console.log('fins');
+          console.log(`{\n${foo(result).join('')}\n}`);
         })
         .catch(console.error);
     });
