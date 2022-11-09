@@ -48,7 +48,7 @@ const runDiff = () => {
 
           result = sort(result);
 
-          //   console.log('result: ', result.length, result, '-----------');
+            // console.log('result: ', result.length, result, '-----------');
 
           const calcSpaces = (length) => Array.from({ length }, () => ' ').join('')
 
@@ -56,13 +56,16 @@ const runDiff = () => {
             const leftSpacesSymbol = calcSpaces(spaces);
             const signSymdol = sign ? `${sign} ` : '  ';
             const keySymbol = `${key}: `;
-            const valueSymbol = extraTypeOf(value) === 'array' ? `{\n${foo(value, spaces + 4).join('')}` : `${value}${index === arr.length - 1 ? `\n${calcSpaces(spaces - 2)}}` : ''} \n`;
+            // const valueSymbol = extraTypeOf(value) === 'array' ? `{\n${foo(value, spaces + 4).join('')}` : `${value}${index === arr.length - 1 ? `\n${calcSpaces(spaces - 2)}}` : ''} \n`;
 
-            return leftSpacesSymbol + signSymdol + keySymbol + valueSymbol;
+            const valueSymbol = extraTypeOf(value) === 'array' ? `{\n${foo(value, spaces + 4).join('')}${calcSpaces(spaces + 4)}}\n` : `${value}${index === arr.length - 1 ? `${calcSpaces(spaces - 2)}` : ''} \n`;
+
+
+            return '  ' + leftSpacesSymbol + signSymdol + keySymbol + valueSymbol;
           });
 
           console.log('fins');
-          console.log(`${foo(result).join('')}`);
+          console.log(`{\n${foo(result).join('').slice(0, -1)}\n}`);
         })
         .catch(console.error);
     });
