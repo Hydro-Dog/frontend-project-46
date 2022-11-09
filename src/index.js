@@ -62,7 +62,7 @@ const runDiff = () => {
           });
 
           console.log('fins');
-          console.log(`{\n${foo(result).join('')}\n}`);
+          console.log(`${foo(result).join('')}`);
         })
         .catch(console.error);
     });
