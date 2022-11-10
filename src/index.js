@@ -46,7 +46,9 @@ const runDiff = () => {
         .then(([res1, res2]) => {
           let result = compare(res1.value, res2.value);
 
+          console.log('result: ', result)
           result = sort(result);
+          console.log('result2: ', result)
 
           console.log('fins---');
           console.log(stylish(result));

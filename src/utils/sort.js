@@ -24,19 +24,3 @@ const sort = (data) => {
 };
 
 export default sort;
-
-// let a2 = {
-//     sign: "",
-//     key: "common",
-//     value: [
-//       { sign: "", key: "setting1", value: "Value 1" },
-//       { sign: "+", key: "setting2", value: [] },
-//       { sign: "-", key: "setting3", value: true },
-//       { sign: "+", key: "setting3", value: null },
-//       {
-//         sign: "",
-//         key: "setting6",
-//         value: true,
-//       },
-//     ]
-// }
