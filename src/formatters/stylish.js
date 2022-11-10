@@ -1,5 +1,5 @@
-import extraTypeOf from './utils/extraTypeOf.js';
-import calcSpaces from './utils/calcSpaces.js';
+import extraTypeOf from '../utils/extraTypeOf.js';
+import calcSpaces from '../utils/calcSpaces.js';
 
 const getString = {
   getLeftSpaces: (spaces) => calcSpaces(spaces),
