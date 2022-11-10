@@ -3,7 +3,7 @@ import path from 'node:path';
 import compare from './utils/compare.js';
 import sort from './utils/sort.js';
 import { parseYaml, parseJson } from './parsers.js';
-import extraTypeOf from './utils/extraTypeOf.js';
+import stylish from './stylish.js';
 
 const runDiff = () => {
   program
@@ -48,24 +48,8 @@ const runDiff = () => {
 
           result = sort(result);
 
-            // console.log('result: ', result.length, result, '-----------');
-
-          const calcSpaces = (length) => Array.from({ length }, () => ' ').join('')
-
-          const foo = (data, spaces = 0, isChild) => data.map(({ sign, key, value }, index, arr) => {
-            const leftSpacesSymbol = calcSpaces(spaces);
-            const signSymdol = sign ? `${sign} ` : '  ';
-            const keySymbol = `${key}: `;
-            // const valueSymbol = extraTypeOf(value) === 'array' ? `{\n${foo(value, spaces + 4).join('')}` : `${value}${index === arr.length - 1 ? `\n${calcSpaces(spaces - 2)}}` : ''} \n`;
-
-            const valueSymbol = extraTypeOf(value) === 'array' ? `{\n${foo(value, spaces + 4).join('')}${calcSpaces(spaces + 4)}}\n` : `${value}${index === arr.length - 1 ? `${calcSpaces(spaces - 2)}` : ''} \n`;
-
-
-            return '  ' + leftSpacesSymbol + signSymdol + keySymbol + valueSymbol;
-          });
-
-          console.log('fins');
-          console.log(`{\n${foo(result).join('').slice(0, -1)}\n}`);
+          console.log('fins---');
+          console.log(stylish(result));
         })
         .catch(console.error);
     });
