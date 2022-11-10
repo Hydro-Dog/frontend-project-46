@@ -3,6 +3,7 @@ import path from 'node:path';
 import compare from './utils/compare.js';
 import sort from './utils/sort.js';
 import { parseYaml, parseJson } from './parsers.js';
+import stylish from './stylish.js';
 
 const runDiff = () => {
   program
@@ -44,14 +45,9 @@ const runDiff = () => {
       readFileData
         .then(([res1, res2]) => {
           let result = compare(res1.value, res2.value);
+          result = sort(result);
 
-          console.log('result: ', JSON.stringify(result))
-
-        //   result = sort(result);
-
-        //   const stringResult = result.map(([action, key, value]) => `  ${action || ' '} ${key}: ${value} \n`).join('');
-
-        //   console.log(`{\n${stringResult}}`);
+          console.log(stylish(result));
         })
         .catch(console.error);
     });
