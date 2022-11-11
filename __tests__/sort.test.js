@@ -1,4 +1,4 @@
-import sortByKeys from '../src/utils/sort.js';
+import { sortByKeys } from '../src/utils/sort.js';
 
 test('sort flat object', () => {
   const array = [
@@ -45,10 +45,9 @@ test('sort nested object', () => {
       key: 'verbose',
       sign: '+',
       value: [
-        { key: 'follow', sign: '-', value: false },
-        { key: 'proxy', sign: '-', value: '123.234.53.22' },
         { key: 'timeout', sign: '-', value: 50 },
         { key: 'timeout', sign: '+', value: 20 },
-      ],
+        { key: 'proxy', sign: '-', value: '123.234.53.22' },
+        { key: 'follow', sign: '-', value: false }],
     }]);
 });

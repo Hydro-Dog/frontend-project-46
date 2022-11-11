@@ -1,55 +1,67 @@
 import { program } from 'commander';
 import path from 'node:path';
 import compare from './utils/compare.js';
-import sort from './utils/sort.js';
+import { sort } from './utils/sort.js';
 import { parseYaml, parseJson } from './parsers.js';
-import stylish from './stylish.js';
+import selectFormatter from './formatters/index.js';
+
+export const genDiff = (path1, path2, format) => {
+  if (path.parse(path1).ext !== path.parse(path2).ext) {
+    throw new Error('file extensions are different');
+  }
+  const extension = path.parse(path1).ext;
+
+  let readFileData = null;
+
+  switch (extension) {
+    case '.json':
+      readFileData = Promise.allSettled([
+        parseJson(path1),
+        parseJson(path2),
+      ]);
+      break;
+
+    case '.yml':
+    case '.yaml':
+      readFileData = Promise.allSettled([
+        parseYaml(path1),
+        parseYaml(path1),
+      ]);
+      break;
+    default:
+      break;
+  }
+
+  return readFileData
+    .then(([res1, res2]) => {
+      let diffStructure = compare(res1.value, res2.value);
+      diffStructure = sort(diffStructure);
+
+      const formatter = selectFormatter(format);
+      return formatter(diffStructure);
+    })
+    .catch(console.error);
+};
 
 const runDiff = () => {
   program
     .version('1.0.0')
+    .argument('<path1>', 'path to file')
+    .argument('<path2>', 'path to file')
     .description('Find json files diff');
 
   program
     .helpOption('-h, --help', 'output usage information')
     .option('-V, --version', 'output the version number')
-    .option('-f, --format <type>', 'output format');
+    .option('-f, --format <type>', 'output format', 'stylish');
 
   program
     .action(() => {
-      const extension = path.parse(process.argv[2]).ext;
-      const file1path = process.argv[2];
-      const file2path = process.argv[3];
+      const { format } = program.opts();
 
-      let readFileData = null;
+      const [path1, path2] = program.args;
 
-      switch (extension) {
-        case '.json':
-          readFileData = Promise.allSettled([
-            parseJson(file1path),
-            parseJson(file2path),
-          ]);
-          break;
-
-        case '.yml':
-        case '.yaml':
-          readFileData = Promise.allSettled([
-            parseYaml(file1path),
-            parseYaml(file2path),
-          ]);
-          break;
-        default:
-          break;
-      }
-
-      readFileData
-        .then(([res1, res2]) => {
-          let result = compare(res1.value, res2.value);
-          result = sort(result);
-
-          console.log(stylish(result));
-        })
-        .catch(console.error);
+      genDiff(path1, path2, format).then(console.log);
     });
 
   program.parse(process.argv);
