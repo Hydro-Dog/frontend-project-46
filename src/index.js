@@ -5,7 +5,7 @@ import { sort } from './utils/sort.js';
 import { parseYaml, parseJson } from './parsers.js';
 import selectFormatter from './formatters/index.js';
 
-const genDiff = (path1, path2, format) => {
+export const genDiff = (path1, path2, format) => {
   if (path.parse(path1).ext !== path.parse(path2).ext) {
     throw new Error('file extensions are different');
   }
@@ -34,11 +34,11 @@ const genDiff = (path1, path2, format) => {
 
   return readFileData
     .then(([res1, res2]) => {
-      let result = compare(res1.value, res2.value);
-      result = sort(result);
+      let diffStructure = compare(res1.value, res2.value);
+      diffStructure = sort(diffStructure);
 
       const formatter = selectFormatter(format);
-      return formatter(result);
+      return formatter(diffStructure);
     })
     .catch(console.error);
 };

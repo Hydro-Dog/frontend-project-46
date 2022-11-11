@@ -9,3 +9,5 @@
 <a href="https://asciinema.org/a/5ZJ0EbXfLfeERNrgpdWetJucr">Flat objects diff</a>
 
 [![asciicast](https://asciinema.org/a/i5IgKdhKd93xrlzJfUaSAlq4J.svg)](https://asciinema.org/a/i5IgKdhKd93xrlzJfUaSAlq4J)
+
+[![asciicast](https://asciinema.org/a/dot9cWGDslDVLCkqciQ14h4HS.svg)](https://asciinema.org/a/dot9cWGDslDVLCkqciQ14h4HS)
