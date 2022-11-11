@@ -12,13 +12,13 @@ export const sortByKeys = (data) => data.sort((
 });
 
 export const sort = (data) => {
-  const data2 = sortByKeys(data);
-  data2.map((item) => {
+  const sortedByKeys = sortByKeys(data);
+  sortedByKeys.map((item) => {
     if (Array.isArray(item.value)) {
       return sort(item.value);
     }
     return item;
   });
 
-  return data2;
+  return sortedByKeys;
 };
