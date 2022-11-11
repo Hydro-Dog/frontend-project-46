@@ -1,4 +1,4 @@
-const sortByKeys = (data) => data.sort((
+export const sortByKeys = (data) => data.sort((
   { key: keyA },
   { key: keyB },
 ) => {
@@ -11,7 +11,7 @@ const sortByKeys = (data) => data.sort((
   return 0;
 });
 
-const sort = (data) => {
+export const sort = (data) => {
   const data2 = sortByKeys(data);
   data2.map((item) => {
     if (Array.isArray(item.value)) {
@@ -22,5 +22,3 @@ const sort = (data) => {
 
   return data2;
 };
-
-export default sort;

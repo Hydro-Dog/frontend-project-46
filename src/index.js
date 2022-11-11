@@ -1,7 +1,7 @@
 import { program } from 'commander';
 import path from 'node:path';
 import compare from './utils/compare.js';
-import sort from './utils/sort.js';
+import { sort } from './utils/sort.js';
 import { parseYaml, parseJson } from './parsers.js';
 import selectFormatter from './formatters/index.js';
 
@@ -36,8 +36,6 @@ const genDiff = (path1, path2, format) => {
     .then(([res1, res2]) => {
       let result = compare(res1.value, res2.value);
       result = sort(result);
-
-      console.log('result: ', result[0])
 
       const formatter = selectFormatter(format);
       return formatter(result);
