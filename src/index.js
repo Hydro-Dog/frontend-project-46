@@ -35,10 +35,11 @@ export const genDiff = (path1, path2, format) => {
   return readFileData
     .then(([res1, res2]) => {
       let diffStructure = compare(res1.value, res2.value);
-      diffStructure = sort(diffStructure);
+      // diffStructure = sort(diffStructure);
+      console.log('diffStructure; ' , JSON.stringify(diffStructure))
 
-      const formatter = selectFormatter(format);
-      return formatter(diffStructure);
+      // const formatter = selectFormatter(format);
+      // return formatter(diffStructure);
     })
     .catch(console.error);
 };

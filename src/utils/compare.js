@@ -16,37 +16,72 @@ const transform = (value) => {
   return result;
 };
 
-const compare = (val1, val2) => {
-  const keysSet = new Set([...Object.keys(val1), ...Object.keys(val2)]);
+const comparePlain = (obj1, obj2) => {
+  const keysSet = new Set([...Object.keys(obj1), ...Object.keys(obj2)]);
   const keys = Array.from(keysSet);
+
   const result = [];
 
   keys.forEach((key) => {
-    if (val1[key] === val2[key]) {
-      result.push({ sign: '', key, value: val1[key] });
-    } else if (val1[key] === undefined
-      && (val2[key] || val2[key] === false || val2[key] === null || val2[key] === 0)) {
-      result.push({ sign: '+', key, value: extraTypeOf(val2[key]) !== 'object' ? val2[key] : transform(val2[key]) });
-    } else if ((val1[key] || val1[key] === false || val1[key] === null || val1[key] === 0)
-    && val2[key] === undefined) {
-      result.push({ sign: '-', key, value: extraTypeOf(val1[key]) !== 'object' ? val1[key] : transform(val1[key]) });
-    } else if (val1[key] !== val2[key]) {
-      if (extraTypeOf(val1[key]) === 'object' && extraTypeOf(val2[key]) === 'object') {
-        result.push({ sign: '', key, value: compare(val1[key], val2[key]) });
-      } else if (extraTypeOf(val1[key]) === 'object' && extraTypeOf(val2[key]) !== 'object') {
-        result.push({ sign: '-', key, value: extraTypeOf(val1[key]) !== 'object' ? val1[key] : transform(val1[key]) });
-        result.push({ sign: '+', key, value: val2[key] });
-      } else if (extraTypeOf(val1[key]) !== 'object' && extraTypeOf(val2[key]) === 'object') {
-        result.push({ sign: '-', key, value: val1[key] });
-        result.push({ sign: '+', key, value: extraTypeOf(val2[key]) !== 'object' ? val2[key] : transform(val2[key]) });
-      } else if (extraTypeOf(val1[key]) !== 'object' && extraTypeOf(val2[key]) !== 'object') {
-        result.push({ sign: '-', key, value: val1[key] });
-        result.push({ sign: '+', key, value: val2[key] });
+    if (extraTypeOf(obj1[key]) === 'object' && extraTypeOf(obj2[key]) === 'object') {
+      console.log('here')
+      const treeResult = comparePlain(obj1[key], obj2[key]);
+      result.push({
+        key,
+        children: treeResult,
+        status: treeResult ? 'changed' : 'same',
+      });
+    } else if (obj1[key] === obj2[key]) {
+      result.push({
+        key,
+        status: 'same',
+        value: obj1[key],
+      });
+    } else if (obj1[key] !== obj2[key]) {
+      if (obj1[key] === undefined) {
+        result.push({
+          key,
+          status: 'added',
+          value: obj2[key],
+        });
+      } else if (obj2[key] === undefined) {
+        result.push({
+          key,
+          status: 'removed',
+          value: obj1[key],
+        });
+      } else {
+        result.push({
+          key,
+          status: 'removed',
+          value: obj1[key],
+        });
+        result.push({
+          key,
+          status: 'added',
+          value: obj2[key],
+        });
       }
     }
   });
 
-  return result;
+  if (result.every((item) => item.status === 'same')) {
+    return false;
+  }
+
+  return result.sort((item1, item2) => {
+    if (item1.key < item2.key) {
+      return -1;
+    }
+    if (item1.key > item2.key) {
+      return 1;
+    }
+    return 0;
+  });
+};
+
+const compare = (val1, val2) => {
+  return comparePlain(val1, val2);
 };
 
 export default compare;
