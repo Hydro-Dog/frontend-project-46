@@ -1,10 +1,10 @@
 import stylish from './stylish.js';
-import plain from './plain.js';
+import toPlain from './plain.js';
 import toJson from './toJson.js';
 
 const formattersMap = {
   stylish,
-  plain,
+  plain: toPlain,
   json: toJson,
 };
 

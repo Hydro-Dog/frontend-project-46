@@ -1,26 +1,28 @@
 import extraTypeOf from '../utils/extraTypeOf.js';
 import calcSpaces from '../utils/calcSpaces.js';
 
-const getString = {
-  getLeftSpaces: (spaces) => calcSpaces(spaces),
-  getSign: (sign) => (sign ? `${sign} ` : '  '),
-  getKey: (key) => `${key}: `,
-  getPrimitiveValue: (value, arr, index, spaces) => `${value}${index === arr.length - 1 ? `${calcSpaces(spaces - 2)}` : ''} \n`,
-  getObjectValue: (cb, value, spaces) => `{\n${cb(value, spaces + 4).join('')}${calcSpaces(spaces + 4)}}\n`,
-};
+const stylish = (tree) => tree.children.map((item) => {
+  if (item.type === 'tree') {
+    return `${item.key}:  ${stylish(item.children)}`
+  }
 
-const prepareData = (data, spaces) => data.map(({ sign, key, value }, index, arr) => {
-  const leftSpacesSymbol = getString.getLeftSpaces(spaces);
-  const signSymbol = getString.getSign(sign);
-  const keySymbol = getString.getKey(key);
+  if (item.type === 'leaf') {
+    if (item.status === 'added') {
+      return `+ ${item.key}: ${JSON.stringify(item.value)}`;
+    }
 
-  const valueSymbol = extraTypeOf(value) === 'array'
-    ? getString.getObjectValue(prepareData, value, spaces)
-    : getString.getPrimitiveValue(value, arr, index, spaces);
+    if (item.status === 'removed') {
+      return `- ${item.key}: ${JSON.stringify(item.value)}`;
+    }
 
-  return `  ${leftSpacesSymbol}${signSymbol}${keySymbol}${valueSymbol}`;
+    if (item.status === 'updated') {
+      return `- ${item.key}: ${JSON.stringify(item.prevValue)} \n + ${item.key}: ${JSON.stringify(item.newValue)}`;
+    }
+
+    if (item.status === 'same') {
+      return `${item.key}: ${JSON.stringify(item.value)}`;
+    }
+  }
 });
-
-const stylish = (data) => `{\n${prepareData(data, 0).join('').slice(0, -1)}\n}`;
 
 export default stylish;

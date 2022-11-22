@@ -1,9 +1,8 @@
 import { program } from 'commander';
 import path from 'node:path';
-import compare from './utils/compare.js';
-import { sort } from './utils/sort.js';
+import generateDiffTree from './utils/generateDiffTree.js';
 import { parseYaml, parseJson } from './parsers.js';
-import selectFormatter from './formatters/index.js';
+import selectFormatter from './formatters/index.js'
 
 export const genDiff = (path1, path2, format) => {
   if (path.parse(path1).ext !== path.parse(path2).ext) {
@@ -15,33 +14,23 @@ export const genDiff = (path1, path2, format) => {
 
   switch (extension) {
     case '.json':
-      readFileData = Promise.allSettled([
-        parseJson(path1),
-        parseJson(path2),
-      ]);
+      readFileData = [parseJson(path1), parseJson(path2)];
       break;
 
     case '.yml':
     case '.yaml':
-      readFileData = Promise.allSettled([
-        parseYaml(path1),
-        parseYaml(path1),
-      ]);
+      readFileData = [parseYaml(path1), parseYaml(path1)];
       break;
     default:
       break;
   }
 
-  return readFileData
-    .then(([res1, res2]) => {
-      let diffStructure = compare(res1.value, res2.value);
-      // diffStructure = sort(diffStructure);
-      console.log('diffStructure; ' , JSON.stringify(diffStructure))
+  let diffStructure = generateDiffTree(readFileData[0], readFileData[1]);
+  
+  console.log('diffStructure; ' , JSON.stringify(diffStructure))
 
-      // const formatter = selectFormatter(format);
-      // return formatter(diffStructure);
-    })
-    .catch(console.error);
+  // const formatter = selectFormatter(format);
+      // console.log('formatter: ', formatter(diffStructure)) 
 };
 
 const runDiff = () => {
@@ -62,7 +51,7 @@ const runDiff = () => {
 
       const [path1, path2] = program.args;
 
-      genDiff(path1, path2, format).then(console.log);
+      genDiff(path1, path2, format);
     });
 
   program.parse(process.argv);
