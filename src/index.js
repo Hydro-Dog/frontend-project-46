@@ -27,10 +27,10 @@ export const genDiff = (path1, path2, format) => {
 
   let diffStructure = generateDiffTree(readFileData[0], readFileData[1]);
   
-  console.log('diffStructure; ' , JSON.stringify(diffStructure))
+  // console.log('diffStructure; ' , JSON.stringify(diffStructure))
 
-  // const formatter = selectFormatter(format);
-      // console.log('formatter: ', formatter(diffStructure)) 
+  const formatter = selectFormatter(format);
+  console.log(formatter(diffStructure)) 
 };
 
 const runDiff = () => {
