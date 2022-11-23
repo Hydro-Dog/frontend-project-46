@@ -1,8 +1,39 @@
-import { sortByKeys } from '../utils/sort.js';
 import extraTypeOf from '../utils/extraTypeOf.js';
 
-const toPlain = (tree) => {
-  
-}
+const complexValueHandler = (value) => {
+  if (extraTypeOf(value) === 'object') {
+    return '[complex value]';
+  }
+  return value;
+};
 
-export default toPlain;
+const getPath = (key, path) => (path ? `${path}.${key}` : `${key}`);
+
+const plain = (tree, path = '') => tree.children.map((item) => {
+  if (item.type === 'tree') {
+    return `${plain(item, getPath(item.key, path))}`;
+  }
+
+  if (item.type === 'leaf') {
+    if (item.status === 'added') {
+      return `Property '${getPath(item.key, path)}' was added with value: ${complexValueHandler(item.value)}\n`;
+    }
+
+    if (item.status === 'removed') {
+      return `Property '${getPath(item.key, path)}' was removed\n`;
+    }
+
+    if (item.status === 'updated') {
+      return `Property '${getPath(item.key, path)}' was updated. From ${complexValueHandler(item.prevValue) === '' ? '\'\'' : complexValueHandler(item.prevValue)} to ${complexValueHandler(item.newValue) === '' ? '\'\'' : complexValueHandler(item.newValue)}\n`;
+    }
+
+    // if (item.status === 'same') {
+    //   return `${getSpaces(spaces)}  ${item.key}: ${prettifyValue(item.value, spaces + 4)} \n`;
+    // }
+  }
+  return null;
+}).join('');
+
+// const stylish = (tree) => `{\n${getChildren(tree, 2)}}`;
+
+export default plain;

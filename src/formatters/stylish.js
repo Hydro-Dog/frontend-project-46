@@ -31,6 +31,7 @@ const getChildren = (tree, spaces = 0) => tree.children.map((item) => {
       return `${getSpaces(spaces)}  ${item.key}: ${prettifyValue(item.value, spaces + 4)} \n`;
     }
   }
+  return null;
 }).join('');
 
 const stylish = (tree) => `{\n${getChildren(tree, 2)}}`;
