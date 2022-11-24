@@ -26,14 +26,8 @@ const plain = (tree, path = '') => tree.children.map((item) => {
     if (item.status === 'updated') {
       return `Property '${getPath(item.key, path)}' was updated. From ${complexValueHandler(item.prevValue) === '' ? '\'\'' : complexValueHandler(item.prevValue)} to ${complexValueHandler(item.newValue) === '' ? '\'\'' : complexValueHandler(item.newValue)}\n`;
     }
-
-    // if (item.status === 'same') {
-    //   return `${getSpaces(spaces)}  ${item.key}: ${prettifyValue(item.value, spaces + 4)} \n`;
-    // }
   }
   return null;
 }).join('');
-
-// const stylish = (tree) => `{\n${getChildren(tree, 2)}}`;
 
 export default plain;
