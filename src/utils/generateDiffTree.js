@@ -4,6 +4,7 @@ const generateDiffTree = (obj1, obj2, key = null) => {
   const keysSet = new Set([...Object.keys(obj1), ...Object.keys(obj2)]);
   let a = 1;
   a = 2;
+  console.log(a);
 
   const keys = Array.from(keysSet).sort();
 
