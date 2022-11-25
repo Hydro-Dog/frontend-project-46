@@ -16,19 +16,19 @@ const getChildren = (tree, spaces = 0) => tree.children.map((item) => {
 
   if (item.type === 'leaf') {
     if (item.status === 'added') {
-      return `${getSpaces(spaces)}+ ${item.key}: ${prettifyValue(item.value, spaces + 4)} \n`;
+      return `${getSpaces(spaces)}+ ${item.key}: ${prettifyValue(item.value, spaces + 4)}\n`;
     }
 
     if (item.status === 'removed') {
-      return `${getSpaces(spaces)}- ${item.key}: ${prettifyValue(item.value, spaces + 4)} \n`;
+      return `${getSpaces(spaces)}- ${item.key}: ${prettifyValue(item.value, spaces + 4)}\n`;
     }
 
     if (item.status === 'updated') {
-      return `${getSpaces(spaces)}- ${item.key}: ${prettifyValue(item.prevValue, spaces + 4)}\n${getSpaces(spaces)}+ ${item.key}: ${prettifyValue(item.newValue, spaces + 4)} \n`;
+      return `${getSpaces(spaces)}- ${item.key}: ${prettifyValue(item.prevValue, spaces + 4)}\n${getSpaces(spaces)}+ ${item.key}: ${prettifyValue(item.newValue, spaces + 4)}\n`;
     }
 
     if (item.status === 'same') {
-      return `${getSpaces(spaces)}  ${item.key}: ${prettifyValue(item.value, spaces + 4)} \n`;
+      return `${getSpaces(spaces)}  ${item.key}: ${prettifyValue(item.value, spaces + 4)}\n`;
     }
   }
   return null;
