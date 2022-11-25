@@ -1,13 +1,8 @@
+import _ from 'lodash';
 import extraTypeOf from './extraTypeOf.js';
 
 const generateDiffTree = (obj1, obj2, key = null) => {
-  const keysSet = new Set([...Object.keys(obj1), ...Object.keys(obj2)]);
-  const keys = Array.from(keysSet).sort();
-
-  const res = [];
-  for (let i = 0; i < Object.keys(obj1).length; i += 1) {
-    res[i] = Object.keys(obj1)[i];
-  }
+  const keys = _.uniqBy([...Object.keys(obj1), ...Object.keys(obj2)], (item) => item);
 
   const result = keys.map((item) => {
     if (extraTypeOf(obj1[item]) === 'object' && extraTypeOf(obj2[item]) === 'object') {

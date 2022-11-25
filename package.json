@@ -24,7 +24,8 @@
     "@babel/plugin-transform-modules-commonjs": "^7.19.6",
     "@types/jest": "^29.2.1",
     "commander": "^9.4.1",
-    "js-yaml": "^4.1.0"
+    "js-yaml": "^4.1.0",
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.18.6",
