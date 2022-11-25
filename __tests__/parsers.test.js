@@ -1,4 +1,4 @@
-import parseFile from '../src/parseFile.js';
+import parseFile from '../src/parsers.js';
 
 const DEEP_FILE_JSON_1 = '__fixtures__/file1deep.json';
 const DEEP_FILE_YML_1 = '__fixtures__/file1deep.yml';

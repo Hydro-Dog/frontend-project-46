@@ -1,5 +1,5 @@
 import generateDiffTree from '../src/utils/generateDiffTree.js';
-import parseFile from '../src/parseFile.js';
+import parseFile from '../src/parsers.js';
 
 const RESULT_DIFF_TREE = {
   children: [{

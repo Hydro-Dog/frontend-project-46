@@ -1,5 +1,5 @@
 import generateDiffTree from './utils/generateDiffTree.js';
-import parseFile from './parseFile.js';
+import parseFile from './parsers.js';
 import selectFormatter from './formatters/index.js';
 
 const genDiff = (path1, path2, format) => {
