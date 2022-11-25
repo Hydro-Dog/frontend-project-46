@@ -2,9 +2,9 @@ import _ from 'lodash';
 import extraTypeOf from './extraTypeOf.js';
 
 const generateDiffTree = (obj1, obj2, key = null) => {
-  const keys = _.uniqBy([...Object.keys(obj1), ...Object.keys(obj2)], (item) => item);
-
-  const result = keys.map((item) => {
+  const unsortedKeys = _.uniqBy([...Object.keys(obj1), ...Object.keys(obj2)], (item) => item);
+  const sortedKeys = _.sortBy(unsortedKeys, [(item) => item]);
+  const result = sortedKeys.map((item) => {
     if (extraTypeOf(obj1[item]) === 'object' && extraTypeOf(obj2[item]) === 'object') {
       return generateDiffTree(obj1[item], obj2[item], item);
     } if (obj1[item] === obj2[item] && obj1[item] !== undefined && obj2[item] !== undefined) {
