@@ -28,6 +28,6 @@ const plain = (tree, path = '') => tree.children.map((item) => {
     }
   }
   return null;
-}).filter(Boolean).join('');
+}).join('').replace(/(\n)$/gm, '');
 
 export default plain;
