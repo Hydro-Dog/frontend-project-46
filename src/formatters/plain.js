@@ -4,7 +4,7 @@ const complexValueHandler = (value) => {
   if (extraTypeOf(value) === 'object') {
     return '[complex value]';
   }
-  return value;
+  return typeof value === 'string' ? `'${value}'` : value;
 };
 
 const getPath = (key, path) => (path ? `${path}.${key}` : `${key}`);
