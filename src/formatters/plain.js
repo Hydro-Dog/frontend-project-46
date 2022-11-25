@@ -9,9 +9,9 @@ const complexValueHandler = (value) => {
 
 const getPath = (key, path) => (path ? `${path}.${key}` : `${key}`);
 
-const plain = (tree, path = '') => tree.children.map((item) => {
+const getPlainStructure = (tree, path) => tree.children.map((item) => {
   if (item.type === 'tree') {
-    return `${plain(item, getPath(item.key, path))}`;
+    return `${getPlainStructure(item, getPath(item.key, path))}`;
   }
 
   if (item.type === 'leaf') {
@@ -28,6 +28,8 @@ const plain = (tree, path = '') => tree.children.map((item) => {
     }
   }
   return null;
-}).join('').replace(/(\n)$/gm, '');
+}).join('');
+
+const plain = (tree, path = '') => getPlainStructure(tree, path).replace(/(\n)$/, '');
 
 export default plain;
