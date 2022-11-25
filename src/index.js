@@ -4,7 +4,7 @@ import selectFormatter from './formatters/index.js';
 
 const genDiff = (path1, path2, format) => {
   const diffStructure = generateDiffTree(parseFile(path1), parseFile(path2));
-  console.log('format: ', format)
+  console.log('format: ', format);
   const formatter = selectFormatter(format);
   return formatter(diffStructure);
 };
