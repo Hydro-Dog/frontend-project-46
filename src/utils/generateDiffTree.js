@@ -1,8 +1,8 @@
 import extraTypeOf from './extraTypeOf.js';
 
 const generateDiffTree = (obj1, obj2, key = null) => {
-  const keysSet = new Set([...Object.keys(obj1), ...Object.keys(obj2)]);
-  const keys = Array.from(keysSet);
+  const keysSet = new Set([...Object.keys(obj1), ...Object.keys(obj2)].sort());
+  const keys = Array.from(keysSet).sort();
 
   const result = keys.map((item) => {
     if (extraTypeOf(obj1[item]) === 'object' && extraTypeOf(obj2[item]) === 'object') {
