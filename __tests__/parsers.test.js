@@ -1,7 +1,7 @@
 import parseFile from '../src/parsers.js';
 
-const DEEP_FILE_JSON_1 = '__fixtures__/file1deep.json';
-const DEEP_FILE_YML_1 = '__fixtures__/file1deep.yml';
+const DEEP_FILE_JSON_1 = '__fixtures__/file1.json';
+const DEEP_FILE_YML_1 = '__fixtures__/file1.yml';
 
 const RESULT_DEEP_FILE_PARSED = {
   common: {

@@ -72,8 +72,8 @@ const RESULT_DIFF_TREE = {
   type: 'tree',
 };
 
-const DEEP_FILE_JSON_1 = '__fixtures__/file1deep.json';
-const DEEP_FILE_JSON_2 = '__fixtures__/file2deep.json';
+const DEEP_FILE_JSON_1 = '__fixtures__/file1.json';
+const DEEP_FILE_JSON_2 = '__fixtures__/file2.json';
 
 test('parse json', () => {
   expect(
