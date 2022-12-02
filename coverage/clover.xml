@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1669987602069" clover="3.2.0">
-  <project timestamp="1669987602069" name="All files">
-    <metrics statements="72" coveredstatements="68" conditionals="55" coveredconditionals="46" methods="20" coveredmethods="20" elements="147" coveredelements="134" complexity="0" loc="72" ncloc="72" packages="4" files="8" classes="8"/>
+<coverage generated="1669989665961" clover="3.2.0">
+  <project timestamp="1669989665961" name="All files">
+    <metrics statements="72" coveredstatements="68" conditionals="53" coveredconditionals="46" methods="20" coveredmethods="20" elements="145" coveredelements="134" complexity="0" loc="72" ncloc="72" packages="4" files="8" classes="8"/>
     <package name="__fixtures__">
       <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="tests-fixtures.js" path="/Users/vladislavbabaev/Documents/Hexlet/frontend-project-46/__fixtures__/tests-fixtures.js">
@@ -36,7 +36,7 @@
       </file>
     </package>
     <package name="src.formatters">
-      <metrics statements="37" coveredstatements="36" conditionals="34" coveredconditionals="28" methods="14" coveredmethods="14"/>
+      <metrics statements="37" coveredstatements="36" conditionals="32" coveredconditionals="28" methods="14" coveredmethods="14"/>
       <file name="index.js" path="/Users/vladislavbabaev/Documents/Hexlet/frontend-project-46/src/formatters/index.js">
         <metrics statements="2" coveredstatements="2" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="5" count="1" type="stmt"/>
@@ -62,13 +62,13 @@
         <line num="30" count="1" type="cond" truecount="1" falsecount="0"/>
       </file>
       <file name="stylish.js" path="/Users/vladislavbabaev/Documents/Hexlet/frontend-project-46/src/formatters/stylish.js">
-        <metrics statements="18" coveredstatements="17" conditionals="14" coveredconditionals="11" methods="7" coveredmethods="7"/>
+        <metrics statements="18" coveredstatements="17" conditionals="12" coveredconditionals="11" methods="7" coveredmethods="7"/>
         <line num="3" count="356" type="stmt"/>
-        <line num="5" count="1" type="cond" truecount="0" falsecount="1"/>
+        <line num="5" count="1" type="stmt"/>
         <line num="6" count="29" type="cond" truecount="2" falsecount="0"/>
         <line num="7" count="9" type="stmt"/>
         <line num="9" count="22" type="stmt"/>
-        <line num="12" count="7" type="cond" truecount="0" falsecount="1"/>
+        <line num="12" count="7" type="stmt"/>
         <line num="13" count="22" type="cond" truecount="2" falsecount="0"/>
         <line num="14" count="6" type="stmt"/>
         <line num="16" count="16" type="cond" truecount="2" falsecount="0"/>
