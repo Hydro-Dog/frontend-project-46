@@ -2,15 +2,13 @@ import _ from 'lodash';
 
 const getSpaces = (depth, ch = '') => {
   if (ch === 'ADDED') {
-    const res = Array.from({ length: depth * 4 }, () => ' ');
-    res.splice(-2, 1, '+');
-    return res.join('');
+    const spaces = Array.from({ length: depth * 4 }, () => ' ');
+    return spaces.map((item, index, array) => (index === array.length - 2 ? '+' : item)).join('');
   }
 
   if (ch === 'REMOVED') {
-    const res = Array.from({ length: depth * 4 }, () => ' ');
-    res.splice(-2, 1, '-');
-    return res.join('');
+    const spaces = Array.from({ length: depth * 4 }, () => ' ');
+    return spaces.map((item, index, array) => (index === array.length - 2 ? '-' : item)).join('');
   }
 
   if (!ch) {
