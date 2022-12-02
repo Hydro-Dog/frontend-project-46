@@ -1,7 +1,7 @@
-import extraTypeOf from '../utils/extraTypeOf.js';
+import _ from 'lodash';
 
 const complexValueHandler = (value) => {
-  if (extraTypeOf(value) === 'object') {
+  if (_.isPlainObject(value)) {
     return '[complex value]';
   }
   return typeof value === 'string' ? `'${value}'` : value;
@@ -9,27 +9,24 @@ const complexValueHandler = (value) => {
 
 const getPath = (key, path) => (path ? `${path}.${key}` : `${key}`);
 
-const getPlainStructure = (tree, path) => tree.children.map((item) => {
-  if (item.type === 'tree') {
-    return `${getPlainStructure(item, getPath(item.key, path))}`;
+const getPlainOutput = (tree, path) => tree.children.map((item) => {
+  if (item.status === 'tree') {
+    return `${getPlainOutput(item, getPath(item.key, path))}`;
+  }
+  if (item.status === 'added') {
+    return `Property '${getPath(item.key, path)}' was added with value: ${complexValueHandler(item.value)}\n`;
   }
 
-  if (item.type === 'leaf') {
-    if (item.status === 'added') {
-      return `Property '${getPath(item.key, path)}' was added with value: ${complexValueHandler(item.value)}\n`;
-    }
+  if (item.status === 'removed') {
+    return `Property '${getPath(item.key, path)}' was removed\n`;
+  }
 
-    if (item.status === 'removed') {
-      return `Property '${getPath(item.key, path)}' was removed\n`;
-    }
-
-    if (item.status === 'updated') {
-      return `Property '${getPath(item.key, path)}' was updated. From ${complexValueHandler(item.prevValue) === '' ? '\'\'' : complexValueHandler(item.prevValue)} to ${complexValueHandler(item.newValue) === '' ? '\'\'' : complexValueHandler(item.newValue)}\n`;
-    }
+  if (item.status === 'updated') {
+    return `Property '${getPath(item.key, path)}' was updated. From ${complexValueHandler(item.prevValue) === '' ? '\'\'' : complexValueHandler(item.prevValue)} to ${complexValueHandler(item.newValue) === '' ? '\'\'' : complexValueHandler(item.newValue)}\n`;
   }
   return null;
 }).join('');
 
-const plain = (tree, path = '') => getPlainStructure(tree, path).replace(/(\n)$/, '');
+const plain = (tree, path = '') => getPlainOutput(tree, path).replace(/(\n)$/, '');
 
 export default plain;

@@ -1,36 +1,34 @@
-import extraTypeOf from '../utils/extraTypeOf.js';
+import _ from 'lodash';
 
-const getSpaces = (length) => Array.from({ length }, () => ' ').join('');
+const getSpaces = (depth) => Array.from({ length: depth }, () => ' ').join('');
 
-const prettifyValue = (value, spaces = 0) => {
-  if (extraTypeOf(value) === 'object') {
-    return `{${Object.entries(value).map(([key, val]) => `\n${getSpaces(spaces + 2)}${key}: ${prettifyValue(val, spaces + 4)}`).join('')}\n${getSpaces(spaces - 2)}}`;
+const prettifyValue = (value, depth = 0) => {
+  if (_.isPlainObject(value)) {
+    return `{${Object.entries(value).map(([key, val]) => `\n${getSpaces(depth + 2)}${key}: ${prettifyValue(val, depth + 4)}`).join('')}\n${getSpaces(depth - 2)}}`;
   }
   return value;
 };
 
-const getChildren = (tree, spaces = 0) => tree.children.map((item) => {
-  if (item.type === 'tree') {
-    return `  ${getSpaces(spaces)}${item.key}: {\n${getChildren(item, spaces + 4)}${getSpaces(spaces + 2)}}\n`;
+const getChildren = (tree, depth = 0) => tree.children.map((item) => {
+  if (item.status === 'tree') {
+    return `  ${getSpaces(depth)}${item.key}: {\n${getChildren(item, depth + 4)}${getSpaces(depth + 2)}}\n`;
+  }
+  if (item.status === 'added') {
+    return `${getSpaces(depth)}+ ${item.key}: ${prettifyValue(item.value, depth + 4)}\n`;
   }
 
-  if (item.type === 'leaf') {
-    if (item.status === 'added') {
-      return `${getSpaces(spaces)}+ ${item.key}: ${prettifyValue(item.value, spaces + 4)}\n`;
-    }
-
-    if (item.status === 'removed') {
-      return `${getSpaces(spaces)}- ${item.key}: ${prettifyValue(item.value, spaces + 4)}\n`;
-    }
-
-    if (item.status === 'updated') {
-      return `${getSpaces(spaces)}- ${item.key}: ${prettifyValue(item.prevValue, spaces + 4)}\n${getSpaces(spaces)}+ ${item.key}: ${prettifyValue(item.newValue, spaces + 4)}\n`;
-    }
-
-    if (item.status === 'same') {
-      return `${getSpaces(spaces)}  ${item.key}: ${prettifyValue(item.value, spaces + 4)}\n`;
-    }
+  if (item.status === 'removed') {
+    return `${getSpaces(depth)}- ${item.key}: ${prettifyValue(item.value, depth + 4)}\n`;
   }
+
+  if (item.status === 'updated') {
+    return `${getSpaces(depth)}- ${item.key}: ${prettifyValue(item.prevValue, depth + 4)}\n${getSpaces(depth)}+ ${item.key}: ${prettifyValue(item.newValue, depth + 4)}\n`;
+  }
+
+  if (item.status === 'same') {
+    return `${getSpaces(depth)}  ${item.key}: ${prettifyValue(item.value, depth + 4)}\n`;
+  }
+
   return null;
 }).join('');
 

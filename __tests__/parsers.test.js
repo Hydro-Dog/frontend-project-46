@@ -1,3 +1,5 @@
+import path from 'node:path';
+import { readFileSync } from 'node:fs';
 import parseFile from '../src/parsers.js';
 
 const DEEP_FILE_JSON_1 = '__fixtures__/file1.json';
@@ -16,5 +18,7 @@ test.each([
   [DEEP_FILE_JSON_1, RESULT_DEEP_FILE_PARSED],
   [DEEP_FILE_YML_1, RESULT_DEEP_FILE_PARSED],
 ])('parse file(%i, %i)', (a, expected) => {
-  expect(parseFile(a)).toEqual(expected);
+  const file = readFileSync(a, 'utf8');
+  const extension = path.parse(a).ext;
+  expect(parseFile(file, extension)).toEqual(expected);
 });
