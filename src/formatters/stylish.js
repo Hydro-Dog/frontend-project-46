@@ -1,32 +1,64 @@
 import _ from 'lodash';
 
-const getSpaces = (depth) => Array.from({ length: depth * 2 }, () => ' ').join('');
+const getSpaces = (depth, ch = '') => {
+  if (ch === 'ADDED') {
+    const res = Array.from({ length: depth * 4 }, () => ' ');
+    res.splice(-2, 1, '+');
+    return res.join('');
+  }
+
+  if (ch === 'REMOVED') {
+    const res = Array.from({ length: depth * 4 }, () => ' ');
+    res.splice(-2, 1, '-');
+    return res.join('');
+  }
+
+  if (!ch) {
+    return Array.from({ length: depth * 4 }, () => ' ').join('');
+  }
+
+  return null;
+};
+
+const getCloseBracket = (depth) => `${getSpaces(depth)}}\n`;
 
 const prettifyValue = (value, depth) => {
   if (_.isPlainObject(value)) {
-    return `{${Object.entries(value).map(([key, val]) => `\n${getSpaces(depth + 1)}${key}: ${prettifyValue(val, depth + 2)}`).join('')}\n${getSpaces(depth - 1)}}`;
+    // eslint-disable-next-line no-shadow
+    return `${Object.entries(value).map(([key, value]) => `\n${getSpaces(depth)}${key}: ${(_.isPlainObject(value) ? `{${prettifyValue(value, depth + 1)}\n${getSpaces(depth)}}` : value)}`).join('')}`;
   }
   return value;
 };
 
 const getStylishOutput = (tree, depth) => tree.children.map((item) => {
   if (item.status === 'tree') {
-    return `  ${getSpaces(depth)}${item.key}: {\n${getStylishOutput(item, depth + 2)}${getSpaces(depth + 1)}}\n`;
+    return `${getSpaces(depth)}${item.key}: {\n${getStylishOutput(item, depth + 1)}${getCloseBracket(depth)}`;
   }
   if (item.status === 'added') {
-    return `${getSpaces(depth)}+ ${item.key}: ${prettifyValue(item.value, depth + 2)}\n`;
+    if (_.isPlainObject(item.value)) {
+      return `${getSpaces(depth, 'ADDED')}${item.key}: {${prettifyValue(item.value, depth + 1)}\n${getCloseBracket(depth)}`;
+    }
+    return `${getSpaces(depth, 'ADDED')}${item.key}: ${prettifyValue(item.value, depth + 1)}\n`;
   }
 
   if (item.status === 'removed') {
-    return `${getSpaces(depth)}- ${item.key}: ${prettifyValue(item.value, depth + 2)}\n`;
+    if (_.isPlainObject(item.value)) {
+      return `${getSpaces(depth, 'REMOVED')}${item.key}: {${prettifyValue(item.value, depth + 1)}\n${getCloseBracket(depth)}`;
+    }
+    return `${getSpaces(depth, 'REMOVED')}${item.key}: ${prettifyValue(item.value, depth + 1)}\n`;
   }
 
   if (item.status === 'updated') {
-    return `${getSpaces(depth)}- ${item.key}: ${prettifyValue(item.prevValue, depth + 2)}\n${getSpaces(depth)}+ ${item.key}: ${prettifyValue(item.newValue, depth + 2)}\n`;
+    const removedProp = _.isPlainObject(item.prevValue) ? `${getSpaces(depth, 'REMOVED')}${item.key}: {${prettifyValue(item.prevValue, depth + 1)}\n${getCloseBracket(depth)}` : `${getSpaces(depth, 'REMOVED')}${item.key}: ${prettifyValue(item.prevValue, depth + 1)}\n`;
+    const addedPrp = _.isPlainObject(item.newValue) ? `${getSpaces(depth, 'ADDED')}${item.key}: {${prettifyValue(item.newValue, depth + 1)}\n${getCloseBracket(depth)}` : `${getSpaces(depth, 'ADDED')}${item.key}: ${prettifyValue(item.newValue, depth + 1)}\n`;
+    return removedProp + addedPrp;
   }
 
   if (item.status === 'same') {
-    return `${getSpaces(depth)}  ${item.key}: ${prettifyValue(item.value, depth + 2)}\n`;
+    if (_.isPlainObject(item.value)) {
+      return `${getSpaces(depth)}${item.key}: {${prettifyValue(item.value, depth + 1)}\n${getCloseBracket(depth)}`;
+    }
+    return `${getSpaces(depth)}${item.key}: ${prettifyValue(item.value, depth + 1)}\n`;
   }
 
   return null;
