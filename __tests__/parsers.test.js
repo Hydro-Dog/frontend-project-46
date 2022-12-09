@@ -19,6 +19,6 @@ test.each([
   [DEEP_FILE_YML_1, RESULT_DEEP_FILE_PARSED],
 ])('parse file(%i, %i)', (a, expected) => {
   const file = readFileSync(a, 'utf8');
-  const extension = path.parse(a).ext;
-  expect(parseFile(file, extension)).toEqual(expected);
+  const format = path.parse(a).ext.substring(1);
+  expect(parseFile(file, format)).toEqual(expected);
 });

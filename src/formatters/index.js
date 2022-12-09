@@ -8,6 +8,6 @@ const formattersMap = {
   json: toJson,
 };
 
-const getFormattedResult = (diffStructure, format = 'stylish') => formattersMap[format](diffStructure);
+const getFormattedResult = (diffStructure, format) => formattersMap[format](diffStructure);
 
 export default getFormattedResult;

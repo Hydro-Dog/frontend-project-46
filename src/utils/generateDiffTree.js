@@ -8,42 +8,36 @@ const generateDiffTree = (obj1, obj2, key = null) => {
       return generateDiffTree(obj1[item], obj2[item], item);
     }
 
-    if (
-      Object.prototype.hasOwnProperty.call(obj1, item)
-      && Object.prototype.hasOwnProperty.call(obj2, item)
-    ) {
-      if (obj1[item] === obj2[item]) {
-        return {
-          key: item,
-          status: 'same',
-          value: obj1[item],
-        };
-      }
-
-      if (obj1[item] !== obj2[item]) {
-        return {
-          key: item,
-          status: 'updated',
-          prevValue: obj1[item],
-          newValue: obj2[item],
-        };
-      }
-    }
-
-    if (!Object.prototype.hasOwnProperty.call(obj1, item)) {
+    if (!Object.hasOwn(obj1, item)) {
       return {
         key: item,
         status: 'added',
         value: obj2[item],
-        type: 'leaf',
       };
     }
 
-    if (!Object.prototype.hasOwnProperty.call(obj2, item)) {
+    if (!Object.hasOwn(obj2, item)) {
       return {
         key: item,
         status: 'removed',
         value: obj1[item],
+      };
+    }
+
+    if (obj1[item] === obj2[item]) {
+      return {
+        key: item,
+        status: 'same',
+        value: obj1[item],
+      };
+    }
+
+    if (obj1[item] !== obj2[item]) {
+      return {
+        key: item,
+        status: 'updated',
+        prevValue: obj1[item],
+        newValue: obj2[item],
       };
     }
 
