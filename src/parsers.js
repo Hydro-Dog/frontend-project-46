@@ -1,13 +1,13 @@
 import yaml from 'js-yaml';
 
-const parseFile = (file, format) => {
-  switch (format) {
+const parseData = (data, formatName) => {
+  switch (formatName) {
     case 'json':
-      return JSON.parse(file);
+      return JSON.parse(data);
 
     case 'yml':
     case 'yaml':
-      return yaml.load(file);
+      return yaml.load(data);
 
     default:
       break;
@@ -16,4 +16,4 @@ const parseFile = (file, format) => {
   return undefined;
 };
 
-export default parseFile;
+export default parseData;

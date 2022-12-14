@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1670596434351" clover="3.2.0">
-  <project timestamp="1670596434352" name="All files">
-    <metrics statements="86" coveredstatements="81" conditionals="63" coveredconditionals="56" methods="22" coveredmethods="22" elements="171" coveredelements="159" complexity="0" loc="86" ncloc="86" packages="4" files="8" classes="8"/>
+<coverage generated="1671036140921" clover="3.2.0">
+  <project timestamp="1671036140921" name="All files">
+    <metrics statements="83" coveredstatements="78" conditionals="59" coveredconditionals="51" methods="20" coveredmethods="20" elements="162" coveredelements="149" complexity="0" loc="83" ncloc="83" packages="4" files="8" classes="8"/>
     <package name="__fixtures__">
       <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="tests-fixtures.js" path="/Users/vladislavbabaev/Documents/Hexlet/frontend-project-46/__fixtures__/tests-fixtures.js">
@@ -36,7 +36,7 @@
       </file>
     </package>
     <package name="src.formatters">
-      <metrics statements="52" coveredstatements="50" conditionals="45" coveredconditionals="41" methods="16" coveredmethods="16"/>
+      <metrics statements="49" coveredstatements="47" conditionals="41" coveredconditionals="36" methods="14" coveredmethods="14"/>
       <file name="index.js" path="/Users/vladislavbabaev/Documents/Hexlet/frontend-project-46/src/formatters/index.js">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="5" count="1" type="stmt"/>
@@ -62,7 +62,7 @@
         <line num="30" count="1" type="cond" truecount="1" falsecount="0"/>
       </file>
       <file name="stylish.js" path="/Users/vladislavbabaev/Documents/Hexlet/frontend-project-46/src/formatters/stylish.js">
-        <metrics statements="33" coveredstatements="31" conditionals="26" coveredconditionals="24" methods="9" coveredmethods="9"/>
+        <metrics statements="30" coveredstatements="28" conditionals="22" coveredconditionals="19" methods="7" coveredmethods="7"/>
         <line num="4" count="1" type="cond" truecount="1" falsecount="0"/>
         <line num="5" count="48" type="stmt"/>
         <line num="6" count="48" type="cond" truecount="2" falsecount="0"/>
@@ -72,30 +72,27 @@
         <line num="14" count="33" type="cond" truecount="1" falsecount="1"/>
         <line num="15" count="33" type="stmt"/>
         <line num="18" count="0" type="stmt"/>
-        <line num="21" count="10" type="cond" truecount="2" falsecount="0"/>
+        <line num="21" count="6" type="cond" truecount="1" falsecount="1"/>
         <line num="23" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="24" count="23" type="stmt"/>
-        <line num="25" count="23" type="stmt"/>
-        <line num="27" count="23" type="cond" truecount="2" falsecount="0"/>
-        <line num="28" count="9" type="cond" truecount="2" falsecount="0"/>
-        <line num="29" count="7" type="stmt"/>
-        <line num="31" count="7" type="cond" truecount="2" falsecount="0"/>
-        <line num="33" count="16" type="stmt"/>
-        <line num="36" count="7" type="stmt"/>
-        <line num="37" count="22" type="cond" truecount="2" falsecount="0"/>
-        <line num="38" count="6" type="stmt"/>
-        <line num="40" count="16" type="cond" truecount="2" falsecount="0"/>
-        <line num="41" count="5" type="stmt"/>
-        <line num="44" count="11" type="cond" truecount="2" falsecount="0"/>
-        <line num="45" count="2" type="stmt"/>
-        <line num="48" count="9" type="cond" truecount="2" falsecount="0"/>
-        <line num="49" count="4" type="stmt"/>
-        <line num="50" count="4" type="stmt"/>
-        <line num="51" count="4" type="stmt"/>
-        <line num="54" count="5" type="cond" truecount="1" falsecount="1"/>
-        <line num="55" count="5" type="stmt"/>
-        <line num="58" count="0" type="stmt"/>
-        <line num="61" count="1" type="stmt"/>
+        <line num="25" count="29" type="cond" truecount="2" falsecount="0"/>
+        <line num="26" count="7" type="stmt"/>
+        <line num="34" count="9" type="stmt"/>
+        <line num="36" count="22" type="stmt"/>
+        <line num="39" count="7" type="stmt"/>
+        <line num="40" count="22" type="cond" truecount="2" falsecount="0"/>
+        <line num="41" count="6" type="stmt"/>
+        <line num="43" count="16" type="cond" truecount="2" falsecount="0"/>
+        <line num="44" count="5" type="stmt"/>
+        <line num="47" count="11" type="cond" truecount="2" falsecount="0"/>
+        <line num="48" count="2" type="stmt"/>
+        <line num="51" count="9" type="cond" truecount="2" falsecount="0"/>
+        <line num="52" count="4" type="stmt"/>
+        <line num="53" count="4" type="stmt"/>
+        <line num="54" count="4" type="stmt"/>
+        <line num="57" count="5" type="cond" truecount="1" falsecount="1"/>
+        <line num="58" count="5" type="stmt"/>
+        <line num="61" count="0" type="stmt"/>
+        <line num="64" count="1" type="stmt"/>
       </file>
       <file name="toJson.js" path="/Users/vladislavbabaev/Documents/Hexlet/frontend-project-46/src/formatters/toJson.js">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
@@ -110,12 +107,12 @@
         <line num="4" count="111" type="stmt"/>
         <line num="5" count="66" type="stmt"/>
         <line num="6" count="21" type="stmt"/>
-        <line num="7" count="66" type="cond" truecount="4" falsecount="0"/>
-        <line num="8" count="18" type="stmt"/>
-        <line num="11" count="48" type="cond" truecount="2" falsecount="0"/>
-        <line num="12" count="15" type="stmt"/>
-        <line num="19" count="33" type="cond" truecount="2" falsecount="0"/>
-        <line num="20" count="6" type="stmt"/>
+        <line num="7" count="66" type="cond" truecount="2" falsecount="0"/>
+        <line num="8" count="15" type="stmt"/>
+        <line num="15" count="51" type="cond" truecount="2" falsecount="0"/>
+        <line num="16" count="6" type="stmt"/>
+        <line num="23" count="45" type="cond" truecount="4" falsecount="0"/>
+        <line num="24" count="18" type="stmt"/>
         <line num="27" count="27" type="cond" truecount="2" falsecount="0"/>
         <line num="28" count="15" type="stmt"/>
         <line num="35" count="12" type="cond" truecount="1" falsecount="1"/>

@@ -20,15 +20,9 @@ const getSpaces = (depth, ch = '') => {
 
 const getCloseBracket = (depth, isRoot) => `${getSpaces(depth)}}${isRoot ? '' : '\n'}`;
 
-const prettifyValue = (value, depth, isRoot = false) => {
-  const getKey = (depth, key) => `\n${getSpaces(depth)}${key}: `;
-  const getComplexVal = (depth, value) => `{${prettifyValue(value, depth + 1)}\n${getSpaces(depth)}}`;
-
+const prettifyValue = (value, depth) => {
   if (_.isPlainObject(value)) {
-    const lines = Object.entries(value).map(([key, value]) => `${getKey(depth, key)}${(_.isPlainObject(value) ? getComplexVal(depth, value) : value)}`);
-    const resString = lines.join('');
-
-    return isRoot ? `{${resString}\n${getCloseBracket(depth - 1, true)}` : resString;
+    return `{\n${Object.entries(value).map(([key, value]) => `${getSpaces(depth)}${key}: ${prettifyValue(value, depth + 1)}\n`).join('')}${getSpaces(depth - 1)}}`;
   }
   return value;
 };

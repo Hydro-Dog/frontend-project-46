@@ -4,10 +4,6 @@ const generateDiffTree = (obj1, obj2, key = null) => {
   const unsortedKeys = _.uniqBy([...Object.keys(obj1), ...Object.keys(obj2)], (item) => item);
   const sortedKeys = _.sortBy(unsortedKeys, [(item) => item]);
   const result = sortedKeys.map((item) => {
-    if (_.isPlainObject(obj1[item]) && _.isPlainObject(obj2[item])) {
-      return generateDiffTree(obj1[item], obj2[item], item);
-    }
-
     if (!Object.hasOwn(obj1, item)) {
       return {
         key: item,
@@ -22,6 +18,10 @@ const generateDiffTree = (obj1, obj2, key = null) => {
         status: 'removed',
         value: obj1[item],
       };
+    }
+
+    if (_.isPlainObject(obj1[item]) && _.isPlainObject(obj2[item])) {
+      return generateDiffTree(obj1[item], obj2[item], item);
     }
 
     if (obj1[item] === obj2[item]) {
